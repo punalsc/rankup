@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import 'react-skeleton-css/styles/skeleton.2.0.4.css';
+import 'react-skeleton-css/styles/normalize.3.0.2.css';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+	return (
+		<div className='App'>
+			<div className='container'>
+				<div className='row'>
+					<div className='one-full column'>
+						<h1>Rack up</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
 
 export default App;
