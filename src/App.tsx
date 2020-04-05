@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 import Form from './Components/Form';
 import Input from './Components/Input';
 
@@ -7,28 +7,29 @@ import 'react-skeleton-css/styles/normalize.3.0.2.css';
 import SubmitButton from './Components/SubmitButton';
 
 const App = () => {
-	const [character, setCharacter] = useState({});
+	const isInitialMount = useRef(true);
+	const [character, setCharacter] = useState();
 	const [inputValue, setInputValue] = useState('');
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		// const { value } = e.target as HTMLTextAreaElement;
 		setInputValue(e.target.value);
 	};
 
-	const baseUrl =
-		'https://gateway.marvel.com:443/v1/public/characters?name=spider-man&limit=100&ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b';
+	const baseUrl = `https://gateway.marvel.com:443/v1/public/characters?name=${inputValue}&limit=100&ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b`;
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const res = await fetch(baseUrl);
-			res.json().then(res => setCharacter(res));
-		};
+		if (isInitialMount.current) {
+			isInitialMount.current = false;
+		} else {
+			const fetchData = async () => {
+				const res = await fetch(baseUrl);
+				res.json().then((res) => setCharacter(res));
+			};
+			fetchData();
+		}
+	}, [inputValue, baseUrl]);
 
-		fetchData();
-	}, []);
-
-	console.log(character);
-	console.log(inputValue);
+	console.log(character !== undefined ? character : null);
 
 	return (
 		<div className='App'>
@@ -36,7 +37,11 @@ const App = () => {
 				<div className='row'>
 					<div className='one-full column'>
 						<section className='spacing-top'>
-							<Form>
+							<Form
+								onSubmit={(e?: any) => {
+									e.preventDefault();
+								}}
+							>
 								<div className='row'>
 									<Input
 										onChange={(e?: any) => handleChange(e)}
@@ -49,7 +54,9 @@ const App = () => {
 										placeholder='Enter username'
 										className='button-primary'
 										value='Submit'
-										type='submit'
+										onClick={() => {
+											console.log('Submit button clicked');
+										}}
 									/>
 								</div>
 							</Form>
@@ -60,7 +67,5 @@ const App = () => {
 		</div>
 	);
 };
-
-// App.contextType = AppContext;
 
 export default App;

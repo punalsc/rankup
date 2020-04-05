@@ -15,6 +15,7 @@ export default ({ value, onChange, placeholder }: InputProps) => {
 			</div>
 			<div className='ten columns full-width'>
 				<input
+					className='u-full-width'
 					placeholder={placeholder}
 					type='text'
 					value={value}

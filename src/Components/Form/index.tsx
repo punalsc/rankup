@@ -1,11 +1,10 @@
 import React, { ReactNode } from 'react';
 
-// import AppContext from '../../Context/AppContext';
-
 type FormProps = {
-	children: ReactNode;
+    children: ReactNode;
+    onSubmit: () => any;
 };
 
-export default ({ children }: FormProps) => {
-	return <form>{children}</form>;
+export default ({ children, onSubmit }: FormProps) => {
+	return <form onSubmit={onSubmit}>{children}</form>;
 };

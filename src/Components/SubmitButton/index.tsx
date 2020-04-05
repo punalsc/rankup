@@ -1,14 +1,16 @@
 import React from 'react';
 
 interface SubmitButtonProps {
-	type: string;
 	placeholder: string;
 	className: string;
 	value: string;
+	onClick: () => any;
 }
 
-export default ({ type, className, value }: SubmitButtonProps) => (
+export default ({ className, value, onClick }: SubmitButtonProps) => (
 	<>
-		<input className={className} type={type} value={value} />
+		<button className={className} onClick={onClick} type='submit'>
+			{value}
+		</button>
 	</>
 );
