@@ -11,6 +11,7 @@ const App = () => {
 
 	const [character, setCharacter] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [historyList, setHistoryList] = useState([] as any);
 	const [inputValue, setInputValue] = useState('');
 	const [isError, setIsError] = useState(false);
 
@@ -23,7 +24,12 @@ const App = () => {
 		setInputValue('');
 	};
 
-	const baseUrl = `https://gateway.marvel.com:443/v1/public/characters?name=${inputValue}&limit=100&ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b`;
+	const handleClick = () => setHistoryList([...historyList, ...character]);
+
+	const baseUrl = `https://gateway.marvel.com:443/v1/public/characters?name=${inputValue}&limit=100&ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b`.replace(
+		' ',
+		'%20'
+	);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -42,7 +48,7 @@ const App = () => {
 				});
 		};
 		isInitialMount.current ? (isInitialMount.current = false) : fetchData();
-	}, [inputValue, baseUrl]);
+	}, [inputValue, baseUrl, historyList]);
 
 	return (
 		<div className='App'>
@@ -64,9 +70,7 @@ const App = () => {
 											placeholder='Enter username'
 											className='button-primary'
 											value='Submit'
-											onClick={() => {
-												console.log('Submit button clicked');
-											}}
+											onClick={handleClick}
 										/>
 									</div>
 								</Form>
@@ -83,10 +87,19 @@ const App = () => {
 								{loading ? (
 									<p>Loading...</p>
 								) : (
-									character &&
-									character.map((item: any) => (
-										<a href={item.name}>{item.name}</a>
-									))
+									character && (
+										<div className='one-half column category'>
+											{historyList.map((item: any) => (
+												<div key={item.id}>
+													<img
+														className='u-max-full-width'
+														src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+														alt={item.name + 'alt'}
+													/>
+												</div>
+											))}
+										</div>
+									)
 								)}
 							</div>
 						</section>
