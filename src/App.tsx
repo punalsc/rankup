@@ -26,29 +26,32 @@ const App = () => {
 
 	const handleClick = () => setHistoryList([...historyList, ...character]);
 
-	const baseUrl = `https://gateway.marvel.com:443/v1/public/characters?name=${inputValue}&limit=100&ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b`.replace(
-		' ',
-		'%20'
-	);
+	const apiKey = 'adeaff6ee796190310c414fecb099cf3';
+	const timeStamp = 'thesoer';
+	const limit = '100';
+	const name = inputValue.replace(' ', '%20');
+	const hash = '05ee4cb8cb9d52bf2db6a2e6e18906fb';
+	const baseUrl = 'https://gateway.marvel.com:443/v1/public/characters?';
+
+	const url = `${baseUrl}name=${name}&limit=${limit}&ts=${timeStamp}&apikey=${apiKey}&hash=${hash}`;
 
 	useEffect(() => {
 		const fetchData = async () => {
-			setLoading(true);
-			const res = await fetch(baseUrl);
-			res
-				.json()
-				.then((res) => {
-					setCharacter(res.data.results);
+			try {
+				if (name !== '') {
+					const res = await fetch(url);
+					const json = await res.json();
+					setCharacter(json.data.results);
 					setLoading(false);
-				})
-				.catch((err) => {
-					if (err.message) {
-						setIsError(true);
-					}
-				});
+				}
+			} catch (err) {
+				if (err.message) {
+					setIsError(true);
+				}
+			}
 		};
 		isInitialMount.current ? (isInitialMount.current = false) : fetchData();
-	}, [inputValue, baseUrl, historyList]);
+	}, [inputValue, url, historyList, name]);
 
 	return (
 		<div className='App'>
@@ -93,7 +96,7 @@ const App = () => {
 												<div key={item.id}>
 													<img
 														className='u-max-full-width'
-														src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+														src={`${item.thumbnail.path}/landscape_xlarge.${item.thumbnail.extension}`}
 														alt={item.name + 'alt'}
 													/>
 												</div>
