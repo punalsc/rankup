@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+
+#rand-images {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 20em;
+  color: #fff;
+  text-shadow: 0 1px 1px #000;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+  }
+
+  h1,
+  h2 {
+    margin: auto;
+    height: 1.5em;
+    line-height: 50px;
+    text-align: center;
+    font-family: "Permanent Marker", cursive;
+    z-index: 100;
+  }
+
+  h1 {
+    font-size: 4em;
+    padding: 5px;
+    line-height: normal;
+    letter-spacing: normal;
+    padding-top: 1em;
+  }
+
+  h2 {
+    font-size: 250%;
+    padding: 5px;
+    top: 100px;
+  }
+}
+
+.section {
+  text-align: center;
+  background: black;
+
+  @media (min-width: 1000px) {
+    padding: 0 0 0;
+  }
+
+  @media (min-width: 750px) {
+    padding: 0 0 0;
+  }
+
+  @media (min-width: 550px) {
+    padding: 0 0 0;
+  }
+}
