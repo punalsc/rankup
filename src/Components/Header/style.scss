@@ -49,6 +49,7 @@
 .section {
   text-align: center;
   background: black;
+  background-size: cover;
 
   @media (min-width: 1000px) {
     padding: 0 0 0;
