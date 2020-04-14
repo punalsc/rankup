@@ -13,6 +13,8 @@ import "react-skeleton-css/styles/skeleton.2.0.4.css";
 import "react-skeleton-css/styles/normalize.3.0.2.css";
 import SubmitButton from "./Components/SubmitButton";
 
+import MainContext from "./Context/MainContext";
+
 const App = () => {
   const isInitialMount = useRef(true);
 
@@ -63,9 +65,18 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header title="Marvel data fetch" paragraph="Some stuff, blah blah">
-        <p>More items</p>
-      </Header>
+      <MainContext.Consumer>
+        {(context?: any) => (
+          <Header
+            title="Marvel Character Search"
+            paragraph="Some stuff, blah blah"
+            backgroundImage={context.data.headerBg[0]}
+          >
+            <p>More items</p>
+          </Header>
+        )}
+      </MainContext.Consumer>
+
       <div className="container">
         <div className="row">
           <div className="one-full column">

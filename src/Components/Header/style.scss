@@ -49,6 +49,12 @@
 .section {
   text-align: center;
   background: black;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
 
   @media (min-width: 1000px) {
     padding: 0 0 0;
@@ -60,5 +66,11 @@
 
   @media (min-width: 550px) {
     padding: 0 0 0;
+  }
+
+  > div {
+    width: 100%;
+    background: #040404;
+    opacity: 0.65;
   }
 }

@@ -5,11 +5,17 @@ interface HeaderProps {
   title: string;
   paragraph: string;
   children: ReactNode;
+  backgroundImage: string;
 }
 
-export default ({ title, paragraph, children }: HeaderProps) => {
+export default ({
+  title,
+  paragraph,
+  children,
+  backgroundImage,
+}: HeaderProps) => {
   return (
-    <section className="section">
+    <section style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className="container">
         <div className="row">
           <div className="one-full column">
