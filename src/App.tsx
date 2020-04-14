@@ -70,7 +70,11 @@ const App = () => {
           <Header
             title="Marvel Character Search"
             paragraph="Some stuff, blah blah"
-            backgroundImage={context.data.headerBg[0]}
+            backgroundImage={
+              context.data.headerBg[
+                Math.floor(Math.random() * context.data.headerBg.length)
+              ]
+            }
           >
             <p>More items</p>
           </Header>
