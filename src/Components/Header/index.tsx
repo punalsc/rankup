@@ -15,10 +15,7 @@ export default ({
   backgroundImage,
 }: HeaderProps) => {
   return (
-    <section
-      className="section"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
+    <section style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className="container">
         <div className="row">
           <div className="one-full column">
