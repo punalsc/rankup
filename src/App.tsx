@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useRef,
   useCallback,
+  useContext,
   ChangeEvent,
 } from "react";
 import Form from "./Components/Form";
@@ -17,6 +18,8 @@ import MainContext from "./Context/MainContext";
 
 const App = () => {
   const isInitialMount = useRef(true);
+
+  const images: any = useContext(MainContext);
 
   const [character, setCharacter] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -65,21 +68,13 @@ const App = () => {
 
   return (
     <div className="App">
-      <MainContext.Consumer>
-        {(context?: any) => (
-          <Header
-            title="Marvel Character Search"
-            paragraph="Some stuff, blah blah"
-            backgroundImage={
-              context.data.headerBg[
-                Math.floor(Math.random() * context.data.headerBg.length)
-              ]
-            }
-          >
-            <p>More items</p>
-          </Header>
-        )}
-      </MainContext.Consumer>
+      <Header
+        title="Marvel Character Search"
+        paragraph="Some stuff, blah blah"
+        backgroundImage={images.data.headerBg[1]}
+      >
+        <p>More items</p>
+      </Header>
 
       <div className="container">
         <div className="row">
