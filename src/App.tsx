@@ -1,7 +1,6 @@
 import React, {
   useState,
   useEffect,
-  useRef,
   useCallback,
   useContext,
   ChangeEvent,
@@ -17,8 +16,6 @@ import SubmitButton from "./Components/SubmitButton";
 import MainContext from "./Context/MainContext";
 
 const App = () => {
-  const isInitialMount = useRef(true);
-
   const images: any = useContext(MainContext);
 
   const [character, setCharacter] = useState([]);
@@ -62,7 +59,7 @@ const App = () => {
 
   useEffect(() => {
     if (name !== "") {
-      isInitialMount.current ? (isInitialMount.current = false) : fetchData();
+      fetchData();
     }
   }, [fetchData, name]);
 
