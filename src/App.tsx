@@ -16,8 +16,10 @@ import SubmitButton from "./Components/SubmitButton";
 import MainContext from "./Context/MainContext";
 
 const App = () => {
-  const images: any = useContext(MainContext);
+  const mainContext: any = useContext(MainContext);
+  const { headerBg } = mainContext.data;
 
+  const [img, setImg] = useState("");
   const [character, setCharacter] = useState([]);
   const [loading, setLoading] = useState(false);
   const [historyList, setHistoryList] = useState([] as any);
@@ -57,18 +59,25 @@ const App = () => {
     }
   }, [url]);
 
+  const imageCallback = useCallback(() => {
+    setImg(headerBg[Math.floor(Math.random() * headerBg.length)]);
+  }, [headerBg]);
+
   useEffect(() => {
     if (name !== "") {
       fetchData();
     }
-  }, [fetchData, name]);
+    if (img === "") {
+      imageCallback();
+    }
+  }, [fetchData, name, imageCallback, img]);
 
   return (
     <div className="App">
       <Header
         title="Marvel Character Search"
         paragraph="Some stuff, blah blah"
-        backgroundImage={images.data.headerBg[1]}
+        backgroundImage={img}
       >
         <p>More items</p>
       </Header>
