@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background: black;
+  color: white !important;
 }
 
 code {
@@ -14,4 +17,10 @@ code {
 
 .spacing-top {
   margin-top: 10rem;
+}
+
+.borderBottom {
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid black;
+  font-size: 1.5em;
 }

@@ -76,35 +76,35 @@ const App = () => {
     <div className="App">
       <Header
         title="Marvel Character Search"
-        paragraph="Some stuff, blah blah"
+        paragraph="Search an array of marvel characters in the search box below"
         backgroundImage={img}
       >
-        <p>More items</p>
+        <p>Tip: Using a black search to get a varianty of random characters</p>
+        <Form onSubmit={(e?: any) => handleSubmit(e)}>
+          <div className="row">
+            <div className="six columns">
+              <Input
+                onChange={(e?: any) => handleChange(e)}
+                value={inputValue}
+                placeholder="Enter character"
+              />
+            </div>
+            <div className="six columns">
+              <SubmitButton
+                placeholder="Enter username"
+                className="button-primary"
+                value="Submit"
+                onClick={handleClick}
+              />
+            </div>
+          </div>
+        </Form>
       </Header>
 
       <div className="container">
         <div className="row">
           <div className="one-full column">
             <section className="spacing-top">
-              <div className="row">
-                <Form onSubmit={(e?: any) => handleSubmit(e)}>
-                  <div className="row">
-                    <Input
-                      onChange={(e?: any) => handleChange(e)}
-                      value={inputValue}
-                      placeholder="Enter character"
-                    />
-                  </div>
-                  <div className="row">
-                    <SubmitButton
-                      placeholder="Enter username"
-                      className="button-primary"
-                      value="Submit"
-                      onClick={handleClick}
-                    />
-                  </div>
-                </Form>
-              </div>
               {isError && (
                 <div className="row">
                   <p>Something went wrong ...</p>

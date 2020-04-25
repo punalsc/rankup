@@ -13,23 +13,27 @@ export default ({
   paragraph,
   children,
   backgroundImage,
-}: HeaderProps) => {
-  return (
-    <section
-      id="header-section"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
-      <div className="container">
-        <div className="row">
-          <div className="one-full column">
-            <header id="rand-images">
-              <h1>{title}</h1>
-              <p>{paragraph}</p>
-              {children}
-            </header>
-          </div>
+}: HeaderProps) => (
+  <section id="header-section">
+    <div className="container">
+      <div className="row">
+        <div className="six columns">
+          <h1>{title}</h1>
+        </div>
+        <div className="six columns">
+          <p className="borderBottom">{paragraph}</p>
         </div>
       </div>
-    </section>
-  );
-};
+      <div
+        className="row"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
+        <div className="one-full column">
+          <header id="rand-images">
+            <strong>{children}</strong>
+          </header>
+        </div>
+      </div>
+    </div>
+  </section>
+);
