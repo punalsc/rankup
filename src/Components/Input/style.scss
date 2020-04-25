@@ -16,7 +16,7 @@
     appearance: none;
     width: 100%;
     background-color: transparent;
-    font-size: 18px;
+    font-size: 2em;
 
     letter-spacing: 0.1em;
     color: white; //black
@@ -27,25 +27,30 @@
     border-bottom: 2px solid #666;
     &:valid ~ .input-group__label {
       color: #27ae60; //green
+      font-size: 2em;
     }
     &:invalid ~ .input-group__label {
       color: #e74c3c; //red
+      font-size: 2em;
     }
     &:placeholder-shown ~ .input-group__label {
       color: white; //black
+      font-size: 2em;
     }
     /* Floating animation */
     &:focus ~ .input-group__label,
     &:not(:placeholder-shown) ~ .input-group__label {
-      transform: translateX(-8px) translateY(-28px) scale(0.8);
+      transform: translateX(-10px) translateY(-55px) scale(0.9);
     }
   }
   &__label {
-    font-size: 18px;
+    font-weight: 100;
+    font-style: normal;
+    font-size: -10px;
     letter-spacing: 0.05em;
     position: absolute;
-    top: 8px;
-    left: 4px;
+    top: -10px;
+    left: 0;
     cursor: text;
     transition: all 0.3s ease;
   }
