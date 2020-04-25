@@ -1,10 +1,11 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
+import "./style.scss";
 
 type FormProps = {
-    children: ReactNode;
-    onSubmit: () => any;
+  children: ReactNode;
+  onSubmit: () => any;
 };
 
 export default ({ children, onSubmit }: FormProps) => {
-	return <form onSubmit={onSubmit}>{children}</form>;
+  return <form onSubmit={onSubmit}>{children}</form>;
 };

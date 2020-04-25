@@ -5,14 +5,19 @@ import React, {
   useContext,
   ChangeEvent,
 } from "react";
+
+// Import Components
 import Form from "./Components/Form";
 import Input from "./Components/Input";
 import Header from "./Components/Header";
-
-import "react-skeleton-css/styles/skeleton.2.0.4.css";
-import "react-skeleton-css/styles/normalize.3.0.2.css";
+import DynamicBg from "./Components/DynamicBg";
 import SubmitButton from "./Components/SubmitButton";
 
+// CSS Framework
+import "react-skeleton-css/styles/skeleton.2.0.4.css";
+import "react-skeleton-css/styles/normalize.3.0.2.css";
+
+// Contexts
 import MainContext from "./Context/MainContext";
 
 const App = () => {
@@ -74,32 +79,23 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header
-        title="Marvel Character Search"
-        paragraph="Search an array of marvel characters in the search box below"
-        backgroundImage={img}
-      >
-        <p>Tip: Using a black search to get a varianty of random characters</p>
+      <Header title="Marvel Character Search" />
+      <DynamicBg background={img}>
         <Form onSubmit={(e?: any) => handleSubmit(e)}>
-          <div className="row">
-            <div className="six columns">
-              <Input
-                onChange={(e?: any) => handleChange(e)}
-                value={inputValue}
-                placeholder="Enter character"
-              />
-            </div>
-            <div className="six columns">
-              <SubmitButton
-                placeholder="Enter username"
-                className="button-primary"
-                value="Submit"
-                onClick={handleClick}
-              />
-            </div>
-          </div>
+          <Input
+            onChange={(e?: any) => handleChange(e)}
+            value={inputValue}
+            placeholder=" "
+          />
+
+          <SubmitButton
+            placeholder="Enter username"
+            className="button-primary"
+            value="Submit"
+            onClick={handleClick}
+          />
         </Form>
-      </Header>
+      </DynamicBg>
 
       <div className="container">
         <div className="row">

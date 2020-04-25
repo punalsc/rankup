@@ -1,9 +1,52 @@
-[for='exampleEmailInput'] {
-	margin-top: 0.5rem;
-	display: none;
+#mainInput {
+  background: none;
+  border: none;
+  border-bottom: 1px solid white;
+  border-radius: 0;
 }
 
-.ten.columns.full-width {
-	width: 100%;
-	margin: 0 0 1.5em;
+.input-group {
+  width: 100%;
+  height: auto;
+  position: relative;
+  &__input {
+    display: block;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background-color: transparent;
+    font-size: 18px;
+
+    letter-spacing: 0.1em;
+    color: white; //black
+    padding: 8px 4px;
+    outline: none;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 2px solid #666;
+    &:valid ~ .input-group__label {
+      color: #27ae60; //green
+    }
+    &:invalid ~ .input-group__label {
+      color: #e74c3c; //red
+    }
+    &:placeholder-shown ~ .input-group__label {
+      color: white; //black
+    }
+    /* Floating animation */
+    &:focus ~ .input-group__label,
+    &:not(:placeholder-shown) ~ .input-group__label {
+      transform: translateX(-8px) translateY(-28px) scale(0.8);
+    }
+  }
+  &__label {
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    position: absolute;
+    top: 8px;
+    left: 4px;
+    cursor: text;
+    transition: all 0.3s ease;
+  }
 }
