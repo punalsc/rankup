@@ -12,6 +12,7 @@ import Input from "./Components/Input";
 import Header from "./Components/Header";
 import DynamicBg from "./Components/DynamicBg";
 import SubmitButton from "./Components/SubmitButton";
+import Card from "./Components/Card";
 
 // CSS Framework
 import "react-skeleton-css/styles/skeleton.2.0.4.css";
@@ -77,6 +78,8 @@ const App = () => {
     }
   }, [fetchData, name, imageCallback, img]);
 
+  console.log(historyList);
+
   return (
     <div className="App">
       <Header title="Marvel Character Search" />
@@ -97,41 +100,32 @@ const App = () => {
         </Form>
       </DynamicBg>
 
-      <div className="container">
-        <div className="row">
-          <div className="one-full column">
-            <section className="spacing-top">
-              {isError && (
-                <div className="row">
-                  <p>Something went wrong ...</p>
-                </div>
-              )}
-              <div className="row"></div>
-            </section>
-            <section>
-              <div className="row">
-                {loading ? (
-                  <p>Loading...</p>
-                ) : (
-                  character && (
-                    <div className="one-half column category">
-                      {historyList.map((item: any) => (
-                        <div key={item.id}>
-                          <img
-                            className="u-max-full-width"
-                            src={`${item.thumbnail.path}/landscape_xlarge.${item.thumbnail.extension}`}
-                            alt={item.name + "alt"}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  )
-                )}
-              </div>
-            </section>
+      <section>
+        {isError && (
+          <div className="row">
+            <p>Something went wrong ...</p>
           </div>
-        </div>
-      </div>
+        )}
+      </section>
+      <section className="cardWrapper">
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          character && (
+            <div className="flex flex-wrap -mx-4">
+              {historyList.map((item: any) => (
+                <Card
+                  key={item.id}
+                  name={item.name}
+                  img={`${item.thumbnail.path}/landscape_xlarge.${item.thumbnail.extension}`}
+                  alt={item.name + "alt"}
+                  description={item.description}
+                />
+              ))}
+            </div>
+          )
+        )}
+      </section>
     </div>
   );
 };

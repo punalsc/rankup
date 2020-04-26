@@ -1,0 +1,14 @@
+.c-card {
+  color: #6a0b0a;
+  border: 1px solid white;
+  img {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &:hover {
+    color: red;
+    img {
+      transform: scale(1.05);
+    }
+  }
+}
