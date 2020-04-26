@@ -78,7 +78,7 @@ const App = () => {
     }
   }, [fetchData, name, imageCallback, img]);
 
-  console.log(historyList);
+  // console.log(historyList);
 
   return (
     <div className="App">

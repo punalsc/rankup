@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import App from "./App";
 import MainProvider from "./Providers/MainProvider";
 
-test("renders learn react link", () => {
+test("Renders expected text", () => {
   const { getByText } = render(
     <MainProvider>
       <App />
