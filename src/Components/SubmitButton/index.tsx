@@ -5,17 +5,12 @@ interface SubmitButtonProps {
   placeholder: string;
   className: string;
   value: string;
-  onClick: () => any;
+  disabled: boolean;
 }
 
-export default ({ className, value, onClick }: SubmitButtonProps) => (
+export default ({ className, value, disabled }: SubmitButtonProps) => (
   <>
-    <button
-      id="submitButton"
-      className={className}
-      onClick={onClick}
-      type="submit"
-    >
+    <button id="submitButton" className={className} type="submit" {...disabled}>
       {value}
     </button>
   </>
