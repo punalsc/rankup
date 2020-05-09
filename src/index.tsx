@@ -15,6 +15,9 @@ ReactDOM.render(
       headerBg: ["hulk", "deadpool", "thanos", "venom"].map(
         (bg) => `./backgrounds/${bg}.jpg`
       ),
+      errorMsg: {
+        duplicate: "Character already found, try another one",
+      },
     }}
   >
     <App />

@@ -23,7 +23,7 @@ import MainContext from "./Context/MainContext";
 
 const App = () => {
   const mainContext: any = useContext(MainContext);
-  const { headerBg } = mainContext;
+  const { headerBg, errorMsg } = mainContext;
 
   const [img, setImg] = useState("");
   const [character, setCharacter] = useState([]);
@@ -31,16 +31,29 @@ const App = () => {
   const [historyList, setHistoryList] = useState([] as any);
   const [inputValue, setInputValue] = useState("");
   const [isError, setIsError] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    const { value } = e.target;
+    setInputValue(value);
+
+    if (
+      historyList.find(
+        (item: any) => item.name.toLowerCase() === value.toLowerCase()
+      )
+    ) {
+      setErrMsg(errorMsg.duplicate);
+    } else {
+      setErrMsg("");
+    }
   };
 
   const handleSubmit = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setInputValue("");
-
-    setHistoryList([...historyList, ...character]);
+    if (errMsg === "") {
+      setHistoryList([...historyList, ...character]);
+    }
   };
 
   const apiKey = "adeaff6ee796190310c414fecb099cf3";
@@ -94,6 +107,7 @@ const App = () => {
             value={loading ? "Loading..." : "Submit"}
             disabled={loading ? true : false}
           />
+          <p className="text-red-500 italic">{errMsg}</p>
         </Form>
       </DynamicBg>
 
