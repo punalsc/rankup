@@ -23,7 +23,7 @@ import MainContext from "./Context/MainContext";
 
 const App = () => {
   const mainContext: any = useContext(MainContext);
-  const { headerBg } = mainContext.data;
+  const { headerBg } = mainContext;
 
   const [img, setImg] = useState("");
   const [character, setCharacter] = useState([]);
@@ -39,9 +39,9 @@ const App = () => {
   const handleSubmit = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setInputValue("");
-  };
 
-  const handleClick = () => setHistoryList([...historyList, ...character]);
+    setHistoryList([...historyList, ...character]);
+  };
 
   const apiKey = "adeaff6ee796190310c414fecb099cf3";
   const timeStamp = "thesoer";
@@ -52,10 +52,12 @@ const App = () => {
 
   const url = `${baseUrl}name=${name}&limit=${limit}&ts=${timeStamp}&apikey=${apiKey}&hash=${hash}`;
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (urlProp: string) => {
+    setLoading(true);
     try {
-      const res = await fetch(url);
+      const res = await fetch(urlProp);
       const json = await res.json();
+
       setCharacter(json.data.results);
       setLoading(false);
     } catch (err) {
@@ -63,22 +65,17 @@ const App = () => {
         setIsError(true);
       }
     }
-  }, [url]);
+  }, []);
 
   const imageCallback = useCallback(() => {
     setImg(headerBg[Math.floor(Math.random() * headerBg.length)]);
   }, [headerBg]);
 
   useEffect(() => {
-    if (name !== "") {
-      fetchData();
-    }
-    if (img === "") {
-      imageCallback();
-    }
-  }, [fetchData, name, imageCallback, img]);
+    if (name !== "") fetchData(url);
 
-  // console.log(historyList);
+    if (img === "") imageCallback();
+  }, [fetchData, name, imageCallback, img, url]);
 
   return (
     <div className="App">
@@ -94,8 +91,8 @@ const App = () => {
           <SubmitButton
             placeholder="Enter username"
             className="button-primary"
-            value="Submit"
-            onClick={handleClick}
+            value={loading ? "Loading..." : "Submit"}
+            disabled={loading ? true : false}
           />
         </Form>
       </DynamicBg>
@@ -108,22 +105,18 @@ const App = () => {
         )}
       </section>
       <section className="cardWrapper">
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          character && (
-            <div className="flex flex-wrap -mx-4">
-              {historyList.map((item: any) => (
-                <Card
-                  key={item.id}
-                  name={item.name}
-                  img={`${item.thumbnail.path}/landscape_xlarge.${item.thumbnail.extension}`}
-                  alt={item.name + "alt"}
-                  description={item.description}
-                />
-              ))}
-            </div>
-          )
+        {historyList.length > 0 && (
+          <div className="flex flex-wrap -mx-4">
+            {historyList.map((item: any) => (
+              <Card
+                key={item.id}
+                name={item.name}
+                img={`${item.thumbnail.path}/landscape_xlarge.${item.thumbnail.extension}`}
+                alt={item.name + "alt"}
+                description={item.description}
+              />
+            ))}
+          </div>
         )}
       </section>
     </div>
