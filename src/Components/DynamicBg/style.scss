@@ -8,13 +8,14 @@
 
   > div {
     padding: 5em;
-    width: 40%;
+    width: 60%;
     height: 100%;
     background: rgb(0, 0, 0);
     background: linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.727328431372549) 67%,
-      rgba(255, 255, 255, 0) 100%
+      rgba(0, 0, 0, 0.727328431372549) 60%,
+      rgba(94, 94, 94, 0.4556197478991597) 89%,
+      rgba(154, 154, 154, 0) 100%
     );
   }
 }

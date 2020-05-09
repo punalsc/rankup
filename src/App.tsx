@@ -95,18 +95,24 @@ const App = () => {
       <Header title="Marvel Character Search" />
       <DynamicBg background={img}>
         <Form onSubmit={(e?: any) => handleSubmit(e)}>
-          <Input
-            onChange={(e?: any) => handleChange(e)}
-            value={inputValue}
-            placeholder=" "
-          />
+          <div className="row">
+            <div className="nine columns">
+              <Input
+                onChange={(e?: any) => handleChange(e)}
+                value={inputValue}
+                placeholder=" "
+              />
+            </div>
+            <div className="three columns">
+              <SubmitButton
+                placeholder="Enter username"
+                className="button-primary"
+                value={loading ? "Loading..." : "Submit"}
+                disabled={loading ? true : false}
+              />
+            </div>
+          </div>
 
-          <SubmitButton
-            placeholder="Enter username"
-            className="button-primary"
-            value={loading ? "Loading..." : "Submit"}
-            disabled={loading ? true : false}
-          />
           <p className="text-red-500 italic">{errMsg}</p>
         </Form>
       </DynamicBg>
