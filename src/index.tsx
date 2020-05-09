@@ -5,12 +5,20 @@ import "./tailwind.generated.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import MainProvider from "./Providers/MainProvider";
+import MainContext from "./Context/MainContext";
+
+const { Provider } = MainContext;
 
 ReactDOM.render(
-  <MainProvider>
+  <Provider
+    value={{
+      headerBg: ["hulk", "deadpool", "thanos", "venom"].map(
+        (bg) => `./backgrounds/${bg}.jpg`
+      ),
+    }}
+  >
     <App />
-  </MainProvider>,
+  </Provider>,
   document.getElementById("root")
 );
 

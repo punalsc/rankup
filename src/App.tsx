@@ -23,7 +23,7 @@ import MainContext from "./Context/MainContext";
 
 const App = () => {
   const mainContext: any = useContext(MainContext);
-  const { headerBg } = mainContext.data;
+  const { headerBg } = mainContext;
 
   const [img, setImg] = useState("");
   const [character, setCharacter] = useState([]);
