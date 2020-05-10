@@ -7,5 +7,9 @@ type FormProps = {
 };
 
 export default ({ children, onSubmit }: FormProps) => {
-  return <form onSubmit={onSubmit}>{children}</form>;
+  return (
+    <form onSubmit={onSubmit}>
+      <div className="row">{children}</div>
+    </form>
+  );
 };

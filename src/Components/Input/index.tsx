@@ -9,19 +9,21 @@ interface InputProps {
 
 export default ({ value, onChange, placeholder }: InputProps) => {
   return (
-    <div className="input-group">
-      <input
-        id="mainInput"
-        className="u-full-width input-group__input"
-        placeholder={placeholder}
-        type="text"
-        value={value}
-        onChange={onChange}
-      />
+    <div className="nine columns">
+      <div className="input-group">
+        <input
+          id="mainInput"
+          className="u-full-width input-group__input"
+          placeholder={placeholder}
+          type="text"
+          value={value}
+          onChange={onChange}
+        />
 
-      <label className="input-group__label" htmlFor="mainInput">
-        Search any character
-      </label>
+        <label className="input-group__label" htmlFor="mainInput">
+          Search any character
+        </label>
+      </div>
     </div>
   );
 };

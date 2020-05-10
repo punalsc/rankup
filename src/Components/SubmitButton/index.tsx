@@ -9,9 +9,9 @@ interface SubmitButtonProps {
 }
 
 export default ({ className, value, disabled }: SubmitButtonProps) => (
-  <>
+  <div className="three columns">
     <button id="submitButton" className={className} type="submit" {...disabled}>
       {value}
     </button>
-  </>
+  </div>
 );
