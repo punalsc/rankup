@@ -23,7 +23,7 @@ import MainContext from "./Context/MainContext";
 
 const App = () => {
   const mainContext: any = useContext(MainContext);
-  const { headerBg, errorMsg } = mainContext;
+  const { headerBg, errorMsg, title } = mainContext;
 
   const [img, setImg] = useState("");
   const [character, setCharacter] = useState([]);
@@ -37,15 +37,14 @@ const App = () => {
     const { value } = e.target;
     setInputValue(value);
 
-    if (
-      historyList.find(
-        (item: any) => item.name.toLowerCase() === value.toLowerCase()
-      )
-    ) {
-      setErrMsg(errorMsg.duplicate);
-    } else {
-      setErrMsg("");
-    }
+    const checkItemInArr = (item: string, arr: Array<string>) =>
+      arr.find(
+        (arrItem: any) => arrItem.name.toLowerCase() === item.toLowerCase()
+      );
+
+    checkItemInArr(value, historyList)
+      ? setErrMsg(errorMsg.duplicate)
+      : setErrMsg("");
   };
 
   const handleSubmit = (e: ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +91,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header title="Marvel Character Search" />
+      <Header title={title} />
       <DynamicBg background={img}>
         <Form onSubmit={(e?: any) => handleSubmit(e)}>
           <div className="row">

@@ -1,21 +1,27 @@
 #dynamicBg {
-  height: 30em;
+  height: 20em;
   overflow: hidden;
   background-size: cover;
-  background-position: center;
+  background-position: center -6em;
+  background-repeat: no-repeat;
+  background-color: #000000;
   box-shadow: inset 0 -5px 20px 19px #000000;
   border-bottom: 5px solid white;
 
   > div {
     padding: 5em;
-    width: 60%;
+    width: 100%;
     height: 100%;
     background: rgb(0, 0, 0);
     background: linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.727328431372549) 60%,
-      rgba(94, 94, 94, 0.4556197478991597) 89%,
+      rgba(0, 0, 0, 0.727328431372549) 67%,
+      rgba(38, 38, 38, 0.41360294117647056) 87%,
       rgba(154, 154, 154, 0) 100%
     );
+
+    form {
+      width: 50%;
+    }
   }
 }
