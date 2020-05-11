@@ -32,7 +32,7 @@ const App = () => {
   const [inputValue, setInputValue] = useState("");
   const [isError, setIsError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
-  const [blah, setBlah] = useState([]);
+  const [secondData, setSecondData] = useState([]);
 
   const apiKey = "adeaff6ee796190310c414fecb099cf3";
   const timeStamp = "thesoer";
@@ -44,7 +44,8 @@ const App = () => {
   const firstUrl = `${firstBaseUrl}name=${name}&limit=${limit}&ts=${timeStamp}&apikey=${apiKey}&hash=${hash}`;
   const secondUrl = `http://cors-anywhere.herokuapp.com/https://superheroapi.com/api/10158405947604808/search/${name}`;
 
-  console.log(blah);
+  console.log(secondData);
+
   const fetchData = useCallback(
     async (firstUrlProp: string, secondUrlProp: string) => {
       setLoading(true);
@@ -66,7 +67,7 @@ const App = () => {
                 secondsJson.results.forEach((found: any) => {
                   if (found.name.toLowerCase() === name.toLowerCase()) {
                     // console.log(found);
-                    setBlah([found] as any);
+                    setSecondData([found] as any);
                   }
                 });
               }
