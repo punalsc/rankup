@@ -32,6 +32,60 @@ const App = () => {
   const [inputValue, setInputValue] = useState("");
   const [isError, setIsError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+  const [blah, setBlah] = useState([]);
+
+  const apiKey = "adeaff6ee796190310c414fecb099cf3";
+  const timeStamp = "thesoer";
+  const limit = "100";
+  const name = inputValue.replace(" ", "%20");
+  const hash = "05ee4cb8cb9d52bf2db6a2e6e18906fb";
+  const firstBaseUrl = "https://gateway.marvel.com:443/v1/public/characters?";
+
+  const firstUrl = `${firstBaseUrl}name=${name}&limit=${limit}&ts=${timeStamp}&apikey=${apiKey}&hash=${hash}`;
+  const secondUrl = `http://cors-anywhere.herokuapp.com/https://superheroapi.com/api/10158405947604808/search/${name}`;
+
+  console.log(blah);
+  const fetchData = useCallback(
+    async (firstUrlProp: string, secondUrlProp: string) => {
+      setLoading(true);
+      try {
+        const res = await fetch(firstUrlProp);
+        const json = await res.json();
+
+        // console.log(json);
+
+        if (json.data.count === 0) {
+          try {
+            const secondRes = await fetch(secondUrlProp);
+            const secondsJson = await secondRes.json();
+
+            // console.log(secondsJson);
+
+            secondsJson.results.forEach((publisher: any) => {
+              if (publisher.biography.publisher === "Marvel Comics") {
+                secondsJson.results.forEach((found: any) => {
+                  if (found.name.toLowerCase() === name.toLowerCase()) {
+                    // console.log(found);
+                    setBlah([found] as any);
+                  }
+                });
+              }
+            });
+          } catch (err) {
+            if (err) setIsError(true);
+          }
+        } else {
+          setCharacter(json.data.results);
+          setLoading(false);
+        }
+      } catch (err) {
+        if (err.message) {
+          setIsError(true);
+        }
+      }
+    },
+    [name]
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -55,41 +109,17 @@ const App = () => {
     }
   };
 
-  const apiKey = "adeaff6ee796190310c414fecb099cf3";
-  const timeStamp = "thesoer";
-  const limit = "100";
-  const name = inputValue.replace(" ", "%20");
-  const hash = "05ee4cb8cb9d52bf2db6a2e6e18906fb";
-  const baseUrl = "https://gateway.marvel.com:443/v1/public/characters?";
-
-  const url = `${baseUrl}name=${name}&limit=${limit}&ts=${timeStamp}&apikey=${apiKey}&hash=${hash}`;
-
-  const fetchData = useCallback(async (urlProp: string) => {
-    setLoading(true);
-    try {
-      const res = await fetch(urlProp);
-      const json = await res.json();
-
-      console.log(json);
-
-      setCharacter(json.data.results);
-      setLoading(false);
-    } catch (err) {
-      if (err.message) {
-        setIsError(true);
-      }
-    }
-  }, []);
-
   const imageCallback = useCallback(() => {
     setImg(headerBg[Math.floor(Math.random() * headerBg.length)]);
   }, [headerBg]);
 
   useEffect(() => {
-    if (name !== "") fetchData(url);
+    if (name !== "") fetchData(firstUrl, secondUrl);
 
     if (img === "") imageCallback();
-  }, [fetchData, name, imageCallback, img, url]);
+  }, [fetchData, name, imageCallback, img, firstUrl, secondUrl]);
+
+  // console.log(character);
 
   return (
     <div className="App">
