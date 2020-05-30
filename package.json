@@ -23,5 +23,9 @@
   "devDependencies": {
     "concurrently": "^5.2.0",
     "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "apollo-server": "^2.14.1",
+    "graphql": "^15.0.0"
   }
 }
