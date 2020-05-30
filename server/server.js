@@ -1,6 +1,10 @@
 const { ApolloServer, gql } = require("apollo-server");
 
 const typeDefs = gql`
+  schema {
+    query: Query
+  }
+
   type Query {
     message: String
   }
@@ -14,5 +18,5 @@ const resolvers = {
 
 const server = new ApolloServer({ typeDefs, resolvers });
 server
-  .listen(5000)
+  .listen(9000)
   .then((serverInfo) => console.info(`Server running at ${serverInfo.url}`));
