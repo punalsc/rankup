@@ -13,15 +13,4 @@ export default ({ title }: HeaderProps) => (
       </div>
     </div>
   </header>
-
-  /* <div
-        className="row"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-      >
-        <div className="one-full column">
-          <header id="rand-images">
-            <strong>{children}</strong>
-          </header>
-        </div>
-      </div> */
 );

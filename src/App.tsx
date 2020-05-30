@@ -34,14 +34,17 @@ const App = () => {
   const [errMsg, setErrMsg] = useState("");
   const [secondData, setSecondData] = useState([]);
 
-  const apiKey = "adeaff6ee796190310c414fecb099cf3";
-  const timeStamp = "thesoer";
+  // const apiKey = "adeaff6ee796190310c414fecb099cf3";
+
+  const a = "001ac6c73378bbfff488a36141458af2";
+  // const timeStamp = "thesoer";
   const limit = "100";
   const name = inputValue.replace(" ", "%20");
-  const hash = "05ee4cb8cb9d52bf2db6a2e6e18906fb";
-  const firstBaseUrl = "https://gateway.marvel.com:443/v1/public/characters?";
+  // const hash = "05ee4cb8cb9d52bf2db6a2e6e18906fb";
+  // const firstBaseUrl = "https://gateway.marvel.com:443/v1/public/characters?";
 
-  const firstUrl = `${firstBaseUrl}name=${name}&limit=${limit}&ts=${timeStamp}&apikey=${apiKey}&hash=${hash}`;
+  // const firstUrl = `${firstBaseUrl}name=${name}&limit=${limit}&ts=${timeStamp}&apikey=${a}&hash=${hash}`;
+  const firstUrl = `https://gateway.marvel.com:443/v1/public/characters?name=${name}&limit=${limit}&ts=thesoer&apikey=${a}&hash=72e5ed53d1398abb831c3ceec263f18b`;
   const secondUrl = `http://cors-anywhere.herokuapp.com/https://superheroapi.com/api/10158405947604808/search/${name}`;
 
   console.log(secondData);
@@ -53,7 +56,7 @@ const App = () => {
         const res = await fetch(firstUrlProp);
         const json = await res.json();
 
-        // console.log(json);
+        console.log(json);
 
         if (json.data.count === 0) {
           try {
@@ -119,8 +122,6 @@ const App = () => {
 
     if (img === "") imageCallback();
   }, [fetchData, name, imageCallback, img, firstUrl, secondUrl]);
-
-  // console.log(character);
 
   return (
     <div className="App">
