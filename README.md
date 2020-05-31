@@ -8,7 +8,7 @@ Using a combination of 2 API
 
 ## Built-with
 
-<p align="center">
+<p>
   <img style="display:inline-block; padding:1em" alt="React"
   src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1000px-React-icon.svg.png"
   width="120"
