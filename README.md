@@ -15,7 +15,7 @@ Using a combination of 2 API
   />
   <img style="display:inline-block; padding:1em" alt="React"
   src="https://png2.cleanpng.com/sh/0ebc34d32fac00f5e40db6270aa5c172/L0KzQYm3VMI2N5d1j5H0aYP2gLBuTf5wbJYyguU2anH5ccTqkvlxfF58fdQ2YYDzfLrqggRqd58yfep5cnX2g37xk71kd551RadqZUDpSIXsVfU4PWQ8RqI9NkS8RIaBUcUzPGcAS6ICMEO7Roq1kP5o/kisspng-node-js-javascript-web-application-express-js-comp-5ae0f84e5e7537.0464945815246930703869.png"
-  width="100"
+  width="90"
   />
   <img style="display:inline-block; padding:1em" alt="React"
   src="https://i0.wp.com/blog.knoldus.com/wp-content/uploads/2019/06/graphql.png?w=600&ssl=1"
@@ -23,7 +23,7 @@ Using a combination of 2 API
   />
   <img style="display:inline-block; padding:1em" alt="React"
   src="https://seeklogo.com/images/A/apollo-logo-DC7DD3C444-seeklogo.com.png"
-  width="0"
+  width="80"
   />
 </p>
 
