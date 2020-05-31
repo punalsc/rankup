@@ -19,4 +19,6 @@ const resolvers = {
 const server = new ApolloServer({ typeDefs, resolvers });
 server
   .listen(9000)
-  .then((serverInfo) => console.info(`Server running at ${serverInfo.url}`));
+  .then((serverInfo) =>
+    console.info(`My Backend Node Server running at ${serverInfo.url}`)
+  );
