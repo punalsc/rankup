@@ -1,74 +1,29 @@
-// const { ApolloServer, gql } = require("apollo-server");
-
-// const typeDefs = gql`
-//   schema {
-//     query: Query
-//   }
-
-//   type Query {
-//     message: String
-//   }
-// `;
-
-// // app.use("/graphql", console.log("Hello"));
-
-// const resolvers = {
-//   Query: {
-//     message: () => "Hello from the GraphQL server!",
-//   },
-// };
-
-// const server = new ApolloServer({ typeDefs, resolvers });
-// server
-//   .listen(9000)
-//   .then((serverInfo) =>
-//     console.info(`🚀 Node Server running at ${serverInfo.url}`)
-//   );
-
 const express = require("express");
-const bodyParser = require("body-parser");
-const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
-const { makeExecutableSchema } = require("graphql-tools");
+const graphqlHTTP = require("express-graphql");
+const cors = require("cors");
+const schema = require("./schema");
 
-// Some fake data
-const books = [
-  {
-    title: "Harry Potter and the Sorcerer's stone",
-    author: "J.K. Rowling",
-  },
-  {
-    title: "Jurassic Park",
-    author: "Michael Crichton",
-  },
-];
-
-// The GraphQL schema in string form
-const typeDefs = `
-  type Query { books: [Book] }
-  type Book { title: String, author: String }
-`;
-
-// The resolvers
-const resolvers = {
-  Query: { books: () => books },
-};
-
-// Put together a schema
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-});
-
-// Initialize the app
 const app = express();
 
-// The GraphQL endpoint
-app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
+// Allow cross-origin
+app.use(cors());
 
-// GraphiQL, a visual editor for queries
-app.use("/graphiql", graphiqlExpress({ endpointURL: "/graphql" }));
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema,
+    graphiql: true,
+  })
+);
 
-// Start the server
-app.listen(9000, () => {
-  console.log("Go to http://localhost:9000/graphiql to run queries!");
+app.use(express.static("public"));
+
+app.use(express.json({ limit: "1mb" }));
+app.post("/api", (request, response) => {
+  console.log(request.body);
+  response.end();
 });
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.info(`🚀 Server started on port ${PORT}`));
