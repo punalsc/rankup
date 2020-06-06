@@ -20,7 +20,8 @@ app.use(express.static("public"));
 
 app.use(express.json({ limit: "1mb" }));
 app.post("/api", (request, response) => {
-  console.log(request.body);
+  const { body } = request;
+  console.log(body);
   response.end();
 });
 
