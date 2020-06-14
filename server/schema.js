@@ -10,25 +10,12 @@ const {
 } = require("graphql");
 
 // Launch Type
-const LaunchType = new GraphQLObjectType({
-  name: "Launch",
+const CharacterType = new GraphQLObjectType({
+  name: "Character",
   fields: () => ({
-    flight_number: { type: GraphQLInt },
-    mission_name: { type: GraphQLString },
-    launch_year: { type: GraphQLString },
-    launch_date_local: { type: GraphQLString },
-    launch_success: { type: GraphQLBoolean },
-    rocket: { type: RocketType },
-  }),
-});
-
-// Rocket Type
-const RocketType = new GraphQLObjectType({
-  name: "Rocket",
-  fields: () => ({
-    rocket_id: { type: GraphQLString },
-    rocket_name: { type: GraphQLString },
-    rocket_type: { type: GraphQLString },
+    id: { type: GraphQLInt },
+    name: { type: GraphQLString },
+    description: { type: GraphQLString },
   }),
 });
 
@@ -36,42 +23,17 @@ const RocketType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
-    launches: {
-      type: new GraphQLList(LaunchType),
-      resolve(parent, args) {
-        return axios
-          .get("https://api.spacexdata.com/v3/launches")
-          .then((res) => res.data);
-      },
-    },
-    launch: {
-      type: LaunchType,
+    character: {
+      type: CharacterType,
       args: {
-        flight_number: { type: GraphQLInt },
+        name: { type: GraphQLString },
       },
-      resolve(parent, args) {
+      resolve(parentValue, args) {
         return axios
-          .get(`https://api.spacexdata.com/v3/launches/${args.flight_number}`)
-          .then((res) => res.data);
-      },
-    },
-    rockets: {
-      type: new GraphQLList(RocketType),
-      resolve(parent, args) {
-        return axios
-          .get("https://api.spacexdata.com/v3/rockets")
-          .then((res) => res.data);
-      },
-    },
-    rocket: {
-      type: RocketType,
-      args: {
-        id: { type: GraphQLInt },
-      },
-      resolve(parent, args) {
-        return axios
-          .get(`https://api.spacexdata.com/v3/rockets/${args.id}`)
-          .then((res) => res.data);
+          .get(
+            `https://gateway.marvel.com:443/v1/public/characters?name=${args.name}&limit=100&ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b`
+          )
+          .then((res) => res.data.data.results[0]);
       },
     },
   },
