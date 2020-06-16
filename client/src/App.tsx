@@ -40,7 +40,7 @@ const App = () => {
   const firstUrl = `https://gateway.marvel.com:443/v1/public/characters?name=${name}&limit=${limit}&ts=thesoer&apikey=${apiKey}&hash=72e5ed53d1398abb831c3ceec263f18b`;
   const secondUrl = `http://cors-anywhere.herokuapp.com/https://superheroapi.com/api/10158405947604808/search/${name}`;
 
-  console.log(secondData);
+  // console.log(secondData);
 
   const fetchData = useCallback(
     async (firstUrlProp: string, secondUrlProp: string) => {
@@ -105,20 +105,52 @@ const App = () => {
       : setErrMsg("");
   };
 
-  const handleSubmit = (e: ChangeEvent<HTMLInputElement>) => {
+  // const handleSubmit = async (e: ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+  //   setInputValue("");
+  //   if (errMsg === "") {
+  //     setHistoryList([...historyList, ...character]);
+  //   }
+  //   const options = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       query: `
+  //       {
+  //         character(name:"hulk"){
+  //           name
+  //           description
+  //         }
+  //       }
+  //       `,
+  //     }),
+  //   };
+  //   const response = await fetch("http://localhost:5000/api", options);
+  //   const responseBody = await response.json
+  //   console.log(response);
+  // };
+
+  const handleGraphQl = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setInputValue("");
-    if (errMsg === "") {
-      setHistoryList([...historyList, ...character]);
-    }
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ data: `${name}` }),
+      body: JSON.stringify({
+        query: `{
+          character(name:"${name}"){
+            name
+            description
+          }
+        }`,
+      }),
     };
-    fetch("http://localhost:5000/api", options);
+    const response = await fetch("http://localhost:5000/graphql", options);
+    const { data } = await response.json();
+    console.log(data.character);
   };
 
   const imageCallback = useCallback(() => {
@@ -135,7 +167,7 @@ const App = () => {
     <div className="App">
       <Header title={title} />
       <DynamicBg background={img}>
-        <Form onSubmit={(e?: any) => handleSubmit(e)}>
+        <Form onSubmit={(e?: any) => handleGraphQl(e)}>
           <Input
             onChange={(e?: any) => handleChange(e)}
             value={inputValue}

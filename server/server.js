@@ -18,13 +18,6 @@ app.use(
 
 app.use(express.static("public"));
 
-app.use(express.json({ limit: "1mb" }));
-app.post("/api", (request, response) => {
-  const { body } = request;
-  console.log(body);
-  response.end();
-});
-
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.info(`🚀 Server started on port ${PORT}`));
