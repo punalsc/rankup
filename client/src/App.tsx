@@ -141,9 +141,8 @@ const App = () => {
       },
       body: JSON.stringify({
         query: `{
-          character(name:"${name}"){
-            name
-            description
+          character(name:"${name}") {
+            description 
           }
         }`,
       }),
