@@ -141,15 +141,18 @@ const App = () => {
       },
       body: JSON.stringify({
         query: `{
-          character(name:"${name}") {
-            description 
+          character(name:"${name}"){
+            description
+          }
+          image(name:"${name}"){
+            url
           }
         }`,
       }),
     };
     const response = await fetch("http://localhost:5000/graphql", options);
     const { data } = await response.json();
-    console.log(data.character);
+    console.log(data);
   };
 
   const imageCallback = useCallback(() => {

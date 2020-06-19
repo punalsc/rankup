@@ -9,7 +9,7 @@ const axios = require("axios");
 const schema = buildSchema(`
     type Query {
         character(name: String!): Character,
-        image(name:String!): [Image]
+        image(name:String!): Image
     }
 
     type Character {
@@ -27,7 +27,7 @@ const fetchDescription = async (args) => {
       `https://gateway.marvel.com:443/v1/public/characters?name=${args.name}&limit=100&ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b`
     );
 
-    console.log(res.data.data.results[0]);
+    // console.log(res.data.data.results[0]);
     return res.data.data.results[0];
   } catch {
     (err) => err;
@@ -42,12 +42,12 @@ const fetchImage = async (args) => {
 
     const { results } = await res.data;
 
-    return results.forEach((obj) => {
-      if (obj.biography.publisher === "Marvel Comics") {
-        console.log(obj.image);
-        return obj.image;
-      }
-    });
+    const filteredResult = results.filter(
+      (obj) => obj.biography.publisher === "Marvel Comics"
+    );
+    console.log(filteredResult[0]);
+
+    return filteredResult[0].image;
   } catch {
     (err) => err;
   }
