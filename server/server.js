@@ -3,13 +3,13 @@ const graphqlHTTP = require("express-graphql");
 const cors = require("cors");
 const { buildSchema } = require("graphql");
 const axios = require("axios");
-// const schema = require("./schema");
 
 // GraphQL Schema
 const schema = buildSchema(`
     type Query {
         character(name: String!): Character,
-        image(name:String!): Image
+        image(name:String!): Image,
+        wikiDesc(name:String!): WikiDesc
     }
 
     type Character {
@@ -19,6 +19,10 @@ const schema = buildSchema(`
     type Image {
       url: String
     }
+
+    type WikiDesc {
+      extract: String
+    }
 `);
 
 const fetchDescription = async (args) => {
@@ -27,7 +31,6 @@ const fetchDescription = async (args) => {
       `https://gateway.marvel.com:443/v1/public/characters?name=${args.name}&limit=100&ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b`
     );
 
-    // console.log(res.data.data.results[0]);
     return res.data.data.results[0];
   } catch {
     (err) => err;
@@ -45,9 +48,23 @@ const fetchImage = async (args) => {
     const filteredResult = results.filter(
       (obj) => obj.biography.publisher === "Marvel Comics"
     );
-    console.log(filteredResult[0]);
 
     return filteredResult[0].image;
+  } catch {
+    (err) => err;
+  }
+};
+
+fetchWikiDesc = async (args) => {
+  try {
+    const res = await axios.get(
+      `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${args.name}_(Marvel_Comics_character)`
+    );
+
+    const data = await res.data.query.pages;
+    filteredData = data[Object.keys(data)[0]];
+
+    return filteredData;
   } catch {
     (err) => err;
   }
@@ -57,6 +74,7 @@ const fetchImage = async (args) => {
 const rootValue = {
   character: fetchDescription,
   image: fetchImage,
+  wikiDesc: fetchWikiDesc,
 };
 
 const app = express();

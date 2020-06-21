@@ -147,6 +147,9 @@ const App = () => {
           image(name:"${name}"){
             url
           }
+          wikiDesc(name:"${name}"){
+            extract
+          }
         }`,
       }),
     };
