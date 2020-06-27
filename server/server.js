@@ -25,10 +25,10 @@ const schema = buildSchema(`
     }
 `);
 
-const fetchDescription = async (args) => {
+const fetchDescription = async ({ name }) => {
   try {
     const res = await axios.get(
-      `https://gateway.marvel.com:443/v1/public/characters?name=${args.name}&limit=100&ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b`
+      `https://gateway.marvel.com:443/v1/public/characters?name=${name}&limit=100&ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b`
     );
 
     return res.data.data.results[0];
@@ -37,10 +37,10 @@ const fetchDescription = async (args) => {
   }
 };
 
-const fetchImage = async (args) => {
+const fetchImage = async ({ name }) => {
   try {
     const res = await axios.get(
-      `https://superheroapi.com/api/10158405947604808/search/${args.name}`
+      `https://superheroapi.com/api/10158405947604808/search/${name}`
     );
 
     const { results } = await res.data;
@@ -55,10 +55,10 @@ const fetchImage = async (args) => {
   }
 };
 
-fetchWikiDesc = async (args) => {
+fetchWikiDesc = async ({ name }) => {
   try {
     const res = await axios.get(
-      `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${args.name}_(Marvel_Comics_character)`
+      `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${name}_(Marvel_Comics_character)`
     );
 
     const data = await res.data.query.pages;

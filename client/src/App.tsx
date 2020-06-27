@@ -46,14 +46,6 @@ const App = () => {
     async (firstUrlProp: string, secondUrlProp: string) => {
       setLoading(true);
 
-      // const options = {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ data: "hello" }),
-      // };
-
       try {
         const res = await fetch(firstUrlProp);
         const json = await res.json();
