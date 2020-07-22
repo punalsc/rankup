@@ -2,6 +2,7 @@ const express = require("express");
 const graphqlHTTP = require("express-graphql");
 const cors = require("cors");
 const { buildSchema } = require("graphql");
+var graphql = require("graphql");
 const axios = require("axios");
 
 // GraphQL Schema
@@ -10,17 +11,29 @@ const schema = buildSchema(`
         character(name: String!): Character,
         image(name:String!): Image,
         wikiDesc(name:String!): WikiDesc
+        wikiAltDesc(name:String!): WikiAltDesc
     }
 
     type Character {
       description: String
+      thumbnail: Thumbnail
     }
+
+    type Thumbnail {
+      path: String
+      extension: String
+    }
+    
 
     type Image {
       url: String
     }
 
     type WikiDesc {
+      extract: String
+    }
+
+    type WikiAltDesc {
       extract: String
     }
 `);
@@ -55,10 +68,35 @@ const fetchImage = async ({ name }) => {
   }
 };
 
-fetchWikiDesc = async ({ name }) => {
+const fetchWikiDesc = async ({ name }) => {
   try {
     const res = await axios.get(
       `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${name}_(Marvel_Comics_character)`
+    );
+
+    const data = await res.data.query.pages;
+    filteredData = data[Object.keys(data)[0]];
+
+    return filteredData;
+  } catch {
+    (err) => err;
+  }
+};
+
+const fetchWikiAltDesc = async ({ name }) => {
+  const capitaliseEachWord = (word) =>
+    word
+      .toLowerCase()
+      .split(" ")
+      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+      .join("_");
+
+  const refactorName = capitaliseEachWord(name);
+  try {
+    const res = await axios.get(
+      `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${refactorName(
+        name
+      )}`
     );
 
     const data = await res.data.query.pages;
@@ -75,6 +113,7 @@ const rootValue = {
   character: fetchDescription,
   image: fetchImage,
   wikiDesc: fetchWikiDesc,
+  wikiAltDesc: fetchWikiAltDesc,
 };
 
 const app = express();
