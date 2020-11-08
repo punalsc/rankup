@@ -6,6 +6,9 @@ import React, {
   ChangeEvent,
 } from "react";
 
+// Apollo client
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+
 // Import Components
 import Form from "./Components/Form";
 import Input from "./Components/Input";
@@ -20,6 +23,11 @@ import "react-skeleton-css/styles/normalize.3.0.2.css";
 
 // Contexts
 import MainContext from "./Context/MainContext";
+
+const client = new ApolloClient({
+  uri: "http://localhost:5000/graphql",
+  cache: new InMemoryCache(),
+});
 
 const App = () => {
   const mainContext: any = useContext(MainContext);
